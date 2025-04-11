@@ -4,20 +4,33 @@ pipeline{
       pollSCM "* * * * * "
     }
 
+    tools {
+        maven 'Maven 3.8.6'
+      }
+
   stages{
-    stage('Stage 1') {
+    stage('Build') {
       steps{
-        sh "echo stage 1"
+        echo "Building..."
+        sh "mvn clean compile -DskipTests"
       }
     }
-    stage('Stage 2') {
+    stage('Test') {
       steps{
-        sh "echo stage 2"
+        echo "Running Tests..."
+        sh "mvn test"
       }
     }
-    stage('Stage 3') {
+    stage('Package') {
       steps{
-        sh "echo stage 3"
+        echo "Packaging..."
+        sh "mvn package -DskipTests"
+      }
+    }
+    stage('Archive Artifacts') {
+      steps{
+        echo "Archiving..."
+        archiveArtifacts archive: 'target/*.war', fingerprint=true
       }
     }
   }
