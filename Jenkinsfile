@@ -30,7 +30,7 @@ pipeline{
     stage('Archive Artifacts') {
       steps{
         echo "Archiving..."
-        archiveArtifacts archive: 'target/*.war', fingerprint=true
+        archiveArtifacts artifacts: 'target/*.jar', fingerprint:true
       }
     }
   }
