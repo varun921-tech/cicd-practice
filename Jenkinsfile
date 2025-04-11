@@ -15,10 +15,18 @@ pipeline{
         sh "mvn clean compile -DskipTests"
       }
     }
-    stage('Test') {
-      steps{
-        echo "Running Tests..."
-        sh "mvn test"
+    stage('Run tests in parallel') {
+      stage('Smoke Tests'){
+        steps{
+          echo "Running Smoke Tests..."
+            sh "mvn test -Dtest=SmokeTest"
+        }
+      }
+      stage('Regression Tests'){
+        steps{
+          echo "Running Regression Tests..."
+            sh "mvn test -Dtest=RegressionTest"
+        }
       }
     }
     stage('Package') {
