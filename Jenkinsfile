@@ -46,12 +46,12 @@ pipeline{
           archiveArtifacts artifacts: 'target/*.jar', fingerprint:true
       }
     }
-    stage('Deploy to Tomcat'){
-      steps{
-        echo "Deploying..."
-        deploy adapters: [tomcat9(credentialsId: 'tomcat_deployer', path: '', url: 'http://ec2-13-49-70-227.eu-north-1.compute.amazonaws.com:8080/')], contextPath: null, war: 'target/*.jar'
-      }
-    }
+    // stage('Deploy to Tomcat'){
+    //   steps{
+    //     echo "Deploying..."
+    //     deploy adapters: [tomcat9(credentialsId: 'tomcat_deployer', path: '', url: 'http://ec2-13-49-70-227.eu-north-1.compute.amazonaws.com:8080/')], contextPath: null, war: 'target/*.jar'
+    //   }
+    // }
   }                                          
 }
                                                
