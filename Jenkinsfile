@@ -17,13 +17,15 @@ pipeline{
     }
     stage('Run tests in parallel') {
       parallel{
-        stage('Smoke Tests'){
+        stage('Smoke Tests on master'){
+          agent {label 'master'}
           steps{
             echo "Running Smoke Tests..."
               sh "mvn test -Dtest=SmokeTest"
           }
         }
-        stage('Regression Tests'){
+        stage('Regression Tests on node1'){
+          agent {label 'node1'}
           steps{
             echo "Running Regression Tests..."
               sh "mvn test -Dtest=RegressionTest"
