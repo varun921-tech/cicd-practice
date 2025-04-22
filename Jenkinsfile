@@ -15,6 +15,12 @@ pipeline{
           sh "mvn clean compile -DskipTests"
       }
     }
+    stage('Email Status'){
+      steps{
+        echo "Sending Email..."
+        emailext body: 'Build is successful', subject: 'Build Status Message', to: 'varungarg63683@gmail.com'
+      }
+    }
     stage('Run tests in parallel') {
       parallel{
         stage('Smoke Tests on master'){
