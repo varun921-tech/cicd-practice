@@ -62,7 +62,7 @@ pipeline{
         <p>Job: '${env.JOB_NAME} [${env.BUILD_NUMBER}]'</p>
         <p>Check console output at <a href='${env.BUILD_URL}'>${env.BUILD_URL}</a></p>
         """,
-        mimeType: 'test/html',
+        mimeType: 'text/html',
         to: 'varungarg63683@gmail.com'
       )
     }
