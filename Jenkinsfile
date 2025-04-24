@@ -52,6 +52,12 @@ pipeline{
           archiveArtifacts artifacts: 'target/*.jar', fingerprint:true
       }
     }
+    stage('Sending Email Notification'){
+      steps{
+        echo "Sending an email..."
+        emailext body: 'This is a demo for extended email notification', subject: 'This is the pipeline status email', to: 'varungarg63683@gmail.com'
+      }
+    }
     // stage('Deploy to Tomcat'){
     //   steps{
     //     echo "Deploying..."
