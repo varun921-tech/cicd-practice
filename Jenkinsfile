@@ -15,12 +15,6 @@ pipeline{
           sh "mvn clean compile -DskipTests"
       }
     }
-    stage('Email Status'){
-      steps{
-        echo "Sending Email..."
-        emailext body: 'Build is successful', subject: 'Build Status Message', to: 'varungarg63683@gmail.com'
-      }
-    }
     stage('Run tests in parallel') {
       parallel{
         stage('Smoke Tests on master'){
@@ -52,12 +46,6 @@ pipeline{
           archiveArtifacts artifacts: 'target/*.jar', fingerprint:true
       }
     }
-    stage('Sending Email Notification'){
-      steps{
-        echo "Sending an email..."
-        emailext body: 'This is a demo for extended email notification', subject: 'This is the pipeline status email', to: 'varungarg63683@gmail.com'
-      }
-    }
     // stage('Deploy to Tomcat'){
     //   steps{
     //     echo "Deploying..."
@@ -74,6 +62,7 @@ pipeline{
         <p>Job: '${env.JOB_NAME} [${env.BUILD_NUMBER}]'</p>
         <p>Check console output at <a href='${env.BUILD_URL}'>${env.BUILD_URL}</a></p>
         """,
+        mimeType: 'test/html',
         to: 'varungarg63683@gmail.com'
       )
     }
