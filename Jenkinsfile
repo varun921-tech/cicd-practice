@@ -46,6 +46,7 @@ pipeline{
           archiveArtifacts artifacts: 'target/*.jar', fingerprint:true
       }
     }
+    
     // stage('Deploy to Tomcat'){
     //   steps{
     //     echo "Deploying..."
@@ -55,18 +56,22 @@ pipeline{
   }                                          
   
   post {
-    success {
-      emailext (
-        subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-        body: """<p>BUILD SUCCESS:</p>
-        <p>Job: '${env.JOB_NAME} [${env.BUILD_NUMBER}]'</p>
-        <p>Check console output at <a href='${env.BUILD_URL}'>${env.BUILD_URL}</a></p>
-        """,
-        mimeType: 'text/html',
-        to: 'varungarg63683@gmail.com'
-      )
-    }
+    recordIssues(
+    enabledForFailure: true, aggregatingResults: true, 
+    tools: [java(), checkStyle(pattern: 'checkstyle-result.xml', reportEncoding: 'UTF-8')]
+    )
   }
+  //   success {
+  //     emailext (
+  //       subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+  //       body: """<p>BUILD SUCCESS:</p>
+  //       <p>Job: '${env.JOB_NAME} [${env.BUILD_NUMBER}]'</p>
+  //       <p>Check console output at <a href='${env.BUILD_URL}'>${env.BUILD_URL}</a></p>
+  //       """,
+  //       mimeType: 'text/html',
+  //       to: 'varungarg63683@gmail.com'
+  //     )
+  //   }
 }
                                                
                                                
