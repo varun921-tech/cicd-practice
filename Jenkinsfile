@@ -46,6 +46,12 @@ pipeline{
           archiveArtifacts artifacts: 'target/*.jar', fingerprint:true
       }
     }
+    stage('Upload Binary'){
+      steps{
+        echo "Uploading to nexus..."
+        nexusArtifactUploader credentialsId: '05750304-b78b-4660-ad87-a2cc09c39d3b', groupId: 'com.example', nexusUrl: 'localhost:8082', nexusVersion: 'nexus3', protocol: 'http', repository: 'demo-release', version: '1.0'
+      }
+    }
     
     // stage('Deploy to Tomcat'){
     //   steps{
