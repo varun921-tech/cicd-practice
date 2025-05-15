@@ -49,7 +49,7 @@ pipeline{
     stage('Upload Binary'){
       steps{
         echo "Uploading to nexus..."
-        nexusArtifactUploader artifacts: [[artifactId: 'cicd-practice-1.0-SNAPSHOT', classifier: '', file: 'demo-pipeline/target/cicd-practice-1.0-SNAPSHOT.jar', type: 'jar']], credentialsId: 'nexus-creds', groupId: 'com.example', nexusUrl: 'localhost:8082', nexusVersion: 'nexus3', protocol: 'http', repository: 'demo-release', version: '1.0'
+        nexusArtifactUploader artifacts: [[artifactId: 'cicd-practice-1.0-SNAPSHOT', classifier: '', file: '${WORKSPACE}/target/cicd-practice-1.0-SNAPSHOT.jar', type: 'jar']], credentialsId: 'nexus-creds', groupId: 'com.example', nexusUrl: 'localhost:8082', nexusVersion: 'nexus3', protocol: 'http', repository: 'demo-release', version: '1.0'
       }
     }
     
